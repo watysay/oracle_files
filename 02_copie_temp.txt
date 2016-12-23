@@ -1,0 +1,38 @@
+### etape 2 : préparer le transfert ###
+
+A la mano : 
+Copie physique entre /workspace/VMx et /workspace/VMy
+
+voir si ça va marcher :
+cd /workspace/VMx
+for file in $(ls -1t export*.dmp); do echo $file; done				==> dernier dump
+for file in $(ls -1t *$(date +%Y%m%d)*); do echo $file; done		==> log et dump d'aujourd'hui
+
+pour copier (avec demande de confirmation)
+for file in $(ls -1t export*.dmp); do cp -ip $file /workspace/VMy; done
+
+les fichiers sont déplacés respectivement dans /dump et /logs (ne pas le faire ??)
+for file in $(find . -name "*$(date +%Y%m%d)*"); do echo $file; done
+
+les VMs sont sur la même machines (ora54n0), les répertoires DATAPUMP sont respectivement
+/workspace/VMy
+et
+/workspace/VMx
+copie possible entre les deux répertoires (etudes)
+
+### create users ###
+sous PL, commande :
+sqlplus user/passwd@VMy @users_creation.sql
+
+contenu users_creation.sql :
+begin
+create_user('A');
+create_user('B');
+create_user('C');
+create_user('D');
+create_user('E');
+create_user('F');
+create_user('G');
+end;
+/
+EXIT
